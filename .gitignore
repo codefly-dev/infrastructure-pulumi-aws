@@ -1,2 +1,3 @@
 .node_modules
 istio-ingress/script/istio*
+kubeconfig

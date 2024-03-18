@@ -91,23 +91,23 @@ const istioSslCertSecret = new k8s.core.v1.Secret("istio-local-ssl-cert-secret",
 //     })
 // }, );
 //
-// const certManagerNamespace = new k8s.core.v1.Namespace("cert-manager", {
-//     metadata: {
-//         name: "cert-manager"
-//     }
-// }, {provider: provider});
-//
-// const certManager = new k8s.helm.v3.Chart("cert-manager", {
-//     chart: "cert-manager",
-//     version: "v1.14.4",
-//     namespace: "cert-manager",
-//     fetchOpts: {
-//         repo: "https://charts.jetstack.io",
-//     },
-//     values: {
-//         installCRDs: true,
-//     },
-// }, {provider: provider, dependsOn: [certManagerNamespace]});
+const certManagerNamespace = new k8s.core.v1.Namespace("cert-manager", {
+    metadata: {
+        name: "cert-manager"
+    }
+}, {provider: provider});
+
+const certManager = new k8s.helm.v3.Chart("cert-manager", {
+    chart: "cert-manager",
+    version: "v1.14.4",
+    namespace: "cert-manager",
+    fetchOpts: {
+        repo: "https://charts.jetstack.io",
+    },
+    values: {
+        installCRDs: true,
+    },
+}, {provider: provider, dependsOn: [certManagerNamespace]});
 //
 // // Create a ClusterIssuer for Let's Encrypt
 // const letsEncryptClusterIssuer = new k8s.apiextensions.CustomResource("letsencrypt", {
@@ -227,6 +227,7 @@ const ingress = new k8s.networking.v1.Ingress("istio-ingress", {
 // It handles SSL termination
 
 
+// TODO: is there a Pulumi way to do this?
 
 const istioGatewayYaml = `
 apiVersion: networking.istio.io/v1alpha3
@@ -245,7 +246,7 @@ spec:
         protocol: HTTPS
       tls:
         mode: SIMPLE
-        credentialName: "istio-gateway-ssl-certificate"
+        credentialName: "istio-local-ssl-cert-secret"
       hosts:
       - "*"
 `;
