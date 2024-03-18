@@ -1,0 +1,7 @@
+name: network
+runtime: nodejs
+description: AWS networking
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: aws-typescript

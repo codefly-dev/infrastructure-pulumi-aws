@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    meta.helm.sh/release-name: istio-ingressgateway
+    meta.helm.sh/release-namespace: istio-ingress
+  creationTimestamp: "2024-03-13T15:09:56Z"
+  labels:
+    app: istio-ingressgateway
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: istio-ingressgateway
+    app.kubernetes.io/version: 1.20.3
+    helm.sh/chart: gateway-1.20.3
+    istio: ingressgateway
+  name: istio-ingressgateway
+  namespace: istio-ingress
+  resourceVersion: "258447"
+  uid: a0975f34-0677-431e-bf37-1c727ad9677a
+spec:
+  clusterIP: 172.20.109.119
+  clusterIPs:
+  - 172.20.109.119
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: status-port
+    nodePort: 31516
+    port: 15021
+    protocol: TCP
+    targetPort: 15021
+  - name: http2
+    nodePort: 32100
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  - name: https
+    nodePort: 30108
+    port: 443
+    protocol: TCP
+    targetPort: 443
+  selector:
+    app: istio-ingressgateway
+    istio: ingressgateway
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}

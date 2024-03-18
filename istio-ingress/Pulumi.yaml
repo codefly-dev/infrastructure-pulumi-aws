@@ -1,0 +1,7 @@
+name: istio-ingress
+runtime: nodejs
+description: istio ingress
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: aws-typescript
