@@ -73,6 +73,9 @@ const kiali = new k8s.helm.v3.Chart("kiali", {
         external_services: {
             prometheus: {
                 url: "http://prometheus-server.istio-system.svc:80"
+            },
+            grafana: {
+                url: "http://grafana.istio-system.svc:80"
             }
         }
     },

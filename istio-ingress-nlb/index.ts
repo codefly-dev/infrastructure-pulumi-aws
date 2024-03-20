@@ -248,7 +248,7 @@ spec:
         mode: SIMPLE
         credentialName: "istio-local-ssl-cert-secret"
       hosts:
-      - "*"
+      - ""
 `;
 
 
