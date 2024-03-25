@@ -1,4 +1,4 @@
 .node_modules
 istio-ingress/script/istio*
 kubeconfig
-Pulumi-us*
+*us-east-1-staging.yaml

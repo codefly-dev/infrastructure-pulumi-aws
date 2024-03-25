@@ -1,7 +1,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as awsx from "@pulumi/awsx";
 import * as aws from "@pulumi/aws";
-import {domain} from "../common/naming";
+import {domain} from "../common";
 
 const stack = pulumi.getStack();
 

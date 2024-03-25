@@ -4,4 +4,17 @@
 
 - [Pulumi](https://www.pulumi.com/docs/get-started/install/)
 - AWS Certificate Manager (ACM) certificate
-- AWS Route 53 hosted zone for your domain
+
+## Setup
+
+- change your domain in `common/index.ts`
+
+## ALB
+
+`pulumi up` in this order:
+
+- network
+- eks
+- istio
+- kiali
+- istio-ingress-alb

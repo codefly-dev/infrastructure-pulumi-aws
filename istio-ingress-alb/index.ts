@@ -3,7 +3,7 @@ import * as k8s from "@pulumi/kubernetes";
 import * as aws from "@pulumi/aws";
 import * as fs from 'fs';
 import * as path from 'path';
-import {domain, domains} from "../common/naming";
+import {domain, domains} from "../common";
 
 const stack = pulumi.getStack();
 // Reference other stacks
