@@ -93,5 +93,39 @@ const albControllerChart = new k8s.helm.v3.Chart("aws-load-balancer-controller",
     },
 }, { provider: cluster.provider, dependsOn: [loadBalancerControllerServiceAccount] });
 
+
+const eksRoleName = cluster.instanceRoles[0].name;
+
+// Get the IAM role that the EKS worker nodes assume
+const eksRole = aws.iam.Role.get("eksRole", eksRoleName);
+
+const ecrPolicy = new aws.iam.Policy("ecrPolicy", {
+    description: "Allows EKS to access ECR",
+    policy: JSON.stringify({
+        Version: "2012-10-17",
+        Statement: [
+            {
+                Effect: "Allow",
+                Action: [
+                    "ecr:GetAuthorizationToken",
+                    "ecr:BatchCheckLayerAvailability",
+                    "ecr:GetDownloadUrlForLayer",
+                    "ecr:BatchGetImage",
+                    "ecr:ListImages",
+                    "ecr:DescribeImages"
+                ],
+                Resource: "*"
+            }
+        ]
+    })
+});
+
+// Attach the policy to the role
+const rolePolicyAttachment = new aws.iam.RolePolicyAttachment("rolePolicyAttachment", {
+    role: eksRole.name,
+    policyArn: ecrPolicy.arn
+});
+
+
 // Export the cluster's kubeconfig.
 export const kubeconfig = cluster.kubeconfig;

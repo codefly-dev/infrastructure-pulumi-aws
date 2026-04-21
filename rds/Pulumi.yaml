@@ -1,0 +1,7 @@
+name: rds
+runtime: nodejs
+description: visitors page
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: aws-typescript
